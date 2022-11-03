@@ -27,12 +27,13 @@
 
 
         <EditText
-            android:id="@+id/txtTitle"
-            android:layout_width="250dp"
+            android:id="@+id/txtId"
+            android:layout_width="50dp"
             android:layout_height="wrap_content"
-            android:hint="Title" />
+            android:hint="ID" />
 
         <Button
+            android:id="@+id/Update_btnGet"
             android:layout_width="100dp"
             android:layout_height="wrap_content"
             android:text="GET"
@@ -44,6 +45,12 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical" >
+
+        <EditText
+            android:id="@+id/txtTitle"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:hint="Title" />
 
         <EditText
             android:id="@+id/txtAuthor"
