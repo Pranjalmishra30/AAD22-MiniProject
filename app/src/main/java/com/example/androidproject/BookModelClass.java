@@ -1,12 +1,13 @@
 package com.example.androidproject;
 
 public class BookModelClass {
-    static Integer id;
-    static String title;
-    static String author;
-    static String publisher;
-    static String price;
+    Integer id;
+    String title;
+    String author;
+    String publisher;
+    String price;
 
+    public BookModelClass(){}
     public BookModelClass(Integer id,String title, String author, String publisher, String price) {
         this.id = id;
         this.title = title;
@@ -20,23 +21,23 @@ public class BookModelClass {
         this.publisher = publisher;
         this.price = price;
     }
-    public static Integer getId() {
-        return id;
+    public Integer getId() {
+        return this.id;
     }
 
     public void setId(Integer id) {
         this.id = id;
     }
 
-    public static String getTitle() {
-        return title;
+    public String getTitle() {
+        return this.title;
     }
 
     public void setTitle(String title) {
         this.title = title;
     }
 
-    public static String getAuthor() {
+    public String getAuthor() {
         return author;
     }
 
@@ -44,7 +45,7 @@ public class BookModelClass {
         this.author = author;
     }
 
-    public static String getPublisher() {
+    public String getPublisher() {
         return publisher;
     }
 
@@ -52,7 +53,7 @@ public class BookModelClass {
         this.publisher = publisher;
     }
 
-    public static String getPrice() {
+    public String getPrice() {
         return price;
     }
 

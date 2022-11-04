@@ -29,7 +29,7 @@ public class ListAll extends AppCompatActivity  {
 //        Log.d("1",booksList.get(1).getTitle());
 //        Log.d("2",booksList.get(2).getTitle());
 //        Log.d("3",booksList.get(3).getTitle());
-//        Log.d("length", String.valueOf(booksList.size()));
+        Log.d("length", String.valueOf(booksList.size()));
         BookAdapter bookAdapter = new BookAdapter(this,booksList);
         l.setAdapter(bookAdapter);
 

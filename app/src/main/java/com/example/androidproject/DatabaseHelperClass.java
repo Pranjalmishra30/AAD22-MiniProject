@@ -80,10 +80,10 @@ public class DatabaseHelperClass extends SQLiteOpenHelper {
     // Add book entry
     public void addBook(BookModelClass bookModelClass){
         ContentValues contentValues = new ContentValues();
-        contentValues.put(DatabaseHelperClass.TITLE,  BookModelClass.getTitle());
-        contentValues.put(DatabaseHelperClass.AUTHOR, BookModelClass.getAuthor());
-        contentValues.put(DatabaseHelperClass.PUBLISHER,  BookModelClass.getPublisher());
-        contentValues.put(DatabaseHelperClass.PRICE,  BookModelClass.getPrice());
+        contentValues.put(DatabaseHelperClass.TITLE,  bookModelClass.getTitle());
+        contentValues.put(DatabaseHelperClass.AUTHOR, bookModelClass.getAuthor());
+        contentValues.put(DatabaseHelperClass.PUBLISHER,  bookModelClass.getPublisher());
+        contentValues.put(DatabaseHelperClass.PRICE,  bookModelClass.getPrice());
         sqLiteDatabase = this.getWritableDatabase();
         sqLiteDatabase.insert(DatabaseHelperClass.tableName,null,contentValues);
 
@@ -92,12 +92,12 @@ public class DatabaseHelperClass extends SQLiteOpenHelper {
     // Update book entry
     public void updateBook(BookModelClass bookModelClass){
         ContentValues contentValues = new ContentValues();
-        contentValues.put(DatabaseHelperClass.TITLE,  BookModelClass.getTitle());
-        contentValues.put(DatabaseHelperClass.AUTHOR, BookModelClass.getAuthor());
-        contentValues.put(DatabaseHelperClass.PUBLISHER,  BookModelClass.getPublisher());
-        contentValues.put(DatabaseHelperClass.PRICE,  BookModelClass.getPrice());
+        contentValues.put(DatabaseHelperClass.TITLE,  bookModelClass.getTitle());
+        contentValues.put(DatabaseHelperClass.AUTHOR, bookModelClass.getAuthor());
+        contentValues.put(DatabaseHelperClass.PUBLISHER,  bookModelClass.getPublisher());
+        contentValues.put(DatabaseHelperClass.PRICE,  bookModelClass.getPrice());
         sqLiteDatabase = this.getWritableDatabase();
-        sqLiteDatabase.update(DatabaseHelperClass.tableName,contentValues, ID+" = ? ", new String[]{String.valueOf(BookModelClass.getId())});
+        sqLiteDatabase.update(DatabaseHelperClass.tableName,contentValues, ID+" = ? ", new String[]{String.valueOf(bookModelClass.getId())});
 
     }
 
@@ -122,15 +122,32 @@ public class DatabaseHelperClass extends SQLiteOpenHelper {
     public ArrayList<BookModelClass> getBooksList(){
         sqLiteDatabase = getReadableDatabase();
         ArrayList<BookModelClass> booksList = new ArrayList<>();
-        Cursor c = sqLiteDatabase.rawQuery("SELECT * FROM BOOKS",null);
-        if(c.moveToFirst()){
-            while(!c.isAfterLast()){
-                booksList.add(new BookModelClass(c.getString(1),c.getString(2),c.getString(3),c.getString(4)));
-                c.moveToNext();
-            }
+
+        Cursor c = sqLiteDatabase.query("BOOKS",null,null,null,null,null,null);
+        while(c.moveToNext()){
+            BookModelClass B = new BookModelClass();
+            B.setTitle(c.getString(c.getColumnIndexOrThrow("Title")));
+            B.setAuthor(c.getString(c.getColumnIndexOrThrow("Author")));
+            B.setPublisher(c.getString(c.getColumnIndexOrThrow("Publisher")));
+            B.setPrice(c.getString(c.getColumnIndexOrThrow("Price")));
+
+            booksList.add(B);
+            Log.d("0",booksList.get(0).getTitle());
+
         }
         c.close();
+        Log.d("0",booksList.get(2).getTitle());
         return booksList;
+
+//        Cursor c = sqLiteDatabase.rawQuery("SELECT * FROM BOOKS",null);
+//        if(c.moveToFirst()){
+//            while(!c.isAfterLast()){
+//                booksList.add(new BookModelClass(c.getString(1),c.getString(2),c.getString(3),c.getString(4)));
+//                c.moveToNext();
+//            }
+//        }
+//        c.close();
+//        return booksList;
     }
 
     public void deleteBook(String IdToDelete){

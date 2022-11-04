@@ -36,7 +36,6 @@ public class MainActivity extends AppCompatActivity {
 
                 if(user.equals(res.get(0)) && pass.equals(res.get(1))){
                     openActivity2();
-                    Toast.makeText(MainActivity.this, "Equal", Toast.LENGTH_SHORT).show();
                 }
                 else{
                     Toast.makeText(MainActivity.this, "Wrong username or password", Toast.LENGTH_SHORT).show();
