@@ -43,7 +43,7 @@ public class BookAdapter extends ArrayAdapter<BookModelClass> {
         publisher.setText(current.getPublisher());
 
         TextView price = listItem.findViewById(R.id.LPrice);
-        price.setText(current.getPrice().toString()+" Rs.");
+        price.setText(current.getPrice()+" Rs.");
 
 
 //

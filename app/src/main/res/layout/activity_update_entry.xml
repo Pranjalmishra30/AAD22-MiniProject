@@ -28,6 +28,7 @@
 
         <EditText
             android:id="@+id/txtId"
+            android:inputType="number"
             android:layout_width="50dp"
             android:layout_height="wrap_content"
             android:hint="ID" />

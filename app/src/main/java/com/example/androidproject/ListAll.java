@@ -1,8 +1,10 @@
 package com.example.androidproject;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.ListView;
 import java.util.ArrayList;
+import java.util.List;
 
 public class ListAll extends AppCompatActivity  {
 //    implements View.OnClickListener
@@ -20,12 +22,34 @@ public class ListAll extends AppCompatActivity  {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list_all);
         l = findViewById(R.id.list);
-        ArrayList<BookModelClass> bookItemModelArrayList = new ArrayList<>();
-        for(int i=0; i<7; i++){
-            bookItemModelArrayList.add(new BookModelClass(Books[i], Authors[i], Publisher[i], Price[i]));
-        }
-        BookAdapter bookAdapter = new BookAdapter(this, bookItemModelArrayList);
+        DatabaseHelperClass databaseHelperClass = new DatabaseHelperClass(ListAll.this);
+        ArrayList<BookModelClass> booksList = new ArrayList<>();
+        booksList = databaseHelperClass.getBooksList();
+//        Log.d("0",booksList.get(0).getTitle());
+//        Log.d("1",booksList.get(1).getTitle());
+//        Log.d("2",booksList.get(2).getTitle());
+//        Log.d("3",booksList.get(3).getTitle());
+//        Log.d("length", String.valueOf(booksList.size()));
+        BookAdapter bookAdapter = new BookAdapter(this,booksList);
         l.setAdapter(bookAdapter);
+
+
+
+
+
+
+
+
+//        ArrayList<BookModelClass> bookItemModelArrayList = new ArrayList<>();
+//        for(int i=0; i<7; i++){
+//            bookItemModelArrayList.add(new BookModelClass(Books[i], Authors[i], Publisher[i], Price[i]));
+//        }
+//        Log.d("0:",bookItemModelArrayList.get(0).getTitle());
+//        Log.d("1:",bookItemModelArrayList.get(1).getTitle());
+//        Log.d("2:",bookItemModelArrayList.get(2).getTitle());
+//
+//        BookAdapter bookAdapter = new BookAdapter(this, bookItemModelArrayList);
+//        l.setAdapter(bookAdapter);
     }
 }
 
