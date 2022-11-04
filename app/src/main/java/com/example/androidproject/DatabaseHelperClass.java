@@ -9,6 +9,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 import androidx.annotation.Nullable;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class DatabaseHelperClass extends SQLiteOpenHelper {
 
@@ -29,6 +30,8 @@ public class DatabaseHelperClass extends SQLiteOpenHelper {
                                         "Publisher TEXT NOT NULL, " +
                                         "Price INTEGER);";
 
+    private static final String CREATE_TABLE2 = "create Table USER("+"username TEXT NOT NULL, password TEXT NOT NULL);";
+
     private static SQLiteDatabase sqLiteDatabase;
 
     public DatabaseHelperClass(Context context) {
@@ -38,6 +41,14 @@ public class DatabaseHelperClass extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(CREATE_TABLE);
+        db.execSQL(CREATE_TABLE2);
+
+        // Login and password added in table
+        ContentValues contentValues = new ContentValues();
+        contentValues.put("username","pranjal1234");
+        contentValues.put("password","P1234");
+        sqLiteDatabase = this.getWritableDatabase();
+        sqLiteDatabase.insert("USER",null,contentValues);
     }
 
     @Override
@@ -45,6 +56,18 @@ public class DatabaseHelperClass extends SQLiteOpenHelper {
         db.execSQL(" DROP TABLE IF EXISTS BOOKS");
         onCreate(db);
     }
+
+    public ArrayList retAuth(){
+        sqLiteDatabase  = getReadableDatabase();
+        ArrayList<String> res = new ArrayList<String>();
+        Cursor c = sqLiteDatabase.rawQuery("select * from USER",null);
+
+        res.add(c.getString(0));
+        res.add(c.getString(1));
+        c.close();
+        return res;
+    }
+
 
     public void addBook(BookModelClass bookModelClass){
         ContentValues contentValues = new ContentValues();
@@ -64,7 +87,7 @@ public class DatabaseHelperClass extends SQLiteOpenHelper {
         contentValues.put(DatabaseHelperClass.PUBLISHER,  BookModelClass.getPublisher());
         contentValues.put(DatabaseHelperClass.PRICE,  BookModelClass.getPrice());
         sqLiteDatabase = this.getWritableDatabase();
-        sqLiteDatabase.update(DatabaseHelperClass.tableName,contentValues, TITLE+" = ? ", new String[]{BookModelClass.getTitle()});
+        sqLiteDatabase.update(DatabaseHelperClass.tableName,contentValues, ID+" = ? ", new String[]{String.valueOf(BookModelClass.getId())});
 
     }
 
@@ -83,5 +106,19 @@ public class DatabaseHelperClass extends SQLiteOpenHelper {
         }
         c.close();
         return res;
+    }
+
+    public ArrayList<BookModelClass> getBooksList(){
+        sqLiteDatabase = getReadableDatabase();
+        ArrayList<BookModelClass> booksList = new ArrayList<>();
+        Cursor c = sqLiteDatabase.rawQuery("SELECT * FROM BOOKS",null);
+        if(c.moveToFirst()){
+            while(!c.isAfterLast()){
+                booksList.add(new BookModelClass(c.getString(1),c.getString(2),c.getString(3),c.getString(4)));
+                c.moveToNext();
+            }
+        }
+        c.close();
+        return booksList;
     }
 }

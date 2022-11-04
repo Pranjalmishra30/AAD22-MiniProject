@@ -23,6 +23,7 @@ public class Update_entry extends AppCompatActivity {
         setContentView(R.layout.activity_update_entry);
         btnUpdate = findViewById(R.id.Update_btnAdd);
         btnGet = findViewById(R.id.Update_btnGet);
+
         id = findViewById(R.id.txtId);
         title = findViewById(R.id.txtTitle);
         author =  findViewById(R.id.txtAuthor);
@@ -48,12 +49,14 @@ public class Update_entry extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Toast.makeText(Update_entry.this,"Updated Book",Toast.LENGTH_SHORT).show();
+                String stringId = id.getText().toString();
+                Integer intId = Integer.parseInt(stringId);
                 String stringTitle = title.getText().toString();
                 String stringAuthor = author.getText().toString();
                 String stringPublisher = publisher.getText().toString();
                 String stringPrice = price.getText().toString();
                 DatabaseHelperClass databaseHelperClass = new DatabaseHelperClass(Update_entry.this);
-                BookModelClass bookModelClass = new BookModelClass(stringTitle,stringAuthor,stringPublisher,stringPrice);
+                BookModelClass bookModelClass = new BookModelClass(intId,stringTitle,stringAuthor,stringPublisher,stringPrice);
                 databaseHelperClass.updateBook(bookModelClass);
                 finish();
                 Intent intent = new Intent(Update_entry.this,Update_entry.class);

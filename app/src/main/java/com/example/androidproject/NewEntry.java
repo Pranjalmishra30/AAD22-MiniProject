@@ -30,10 +30,36 @@ public class NewEntry extends AppCompatActivity {
         price =  findViewById(R.id.txtPrice);
 
 
+        buttonAdd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String stringTitle = title.getText().toString();
+                String stringAuthor = author.getText().toString();
+                String stringPublisher = publisher.getText().toString();
+                String stringPrice = price.getText().toString();
+
+                if (stringTitle.length() <= 0 || stringAuthor.length()<=0 || stringTitle.length()<=0 || stringPrice.length()<=0) {
+                    Toast.makeText(NewEntry.this, "Enter all fields", Toast.LENGTH_SHORT).show();
+                } else {
+
+                    DatabaseHelperClass databaseHelperClass = new DatabaseHelperClass(NewEntry.this);
+                    BookModelClass bookModelClass = new BookModelClass(stringTitle, stringAuthor, stringPublisher, stringPrice);
+                    databaseHelperClass.addBook(bookModelClass);
+                    Toast.makeText(NewEntry.this, "Added Book", Toast.LENGTH_SHORT).show();
+                    finish();
+                    Intent intent = new Intent(NewEntry.this, NewEntry.class);
+                    startActivity(intent);
+                }
+            }
+
+        });
+
+
         buttonUpdate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                openUpdatePage();
+                Intent intent = new Intent(NewEntry.this,Update_entry.class);
+                startActivity(intent);
             }
         });
 
@@ -45,29 +71,10 @@ public class NewEntry extends AppCompatActivity {
             }
         });
 
-        buttonAdd.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Toast.makeText(NewEntry.this,"Added Book",Toast.LENGTH_SHORT).show();
-                String stringTitle = title.getText().toString();
-                String stringAuthor = author.getText().toString();
-                String stringPublisher = publisher.getText().toString();
-                String stringPrice = price.getText().toString();
-//                Integer intPrice = Integer.parseInt(stringPrice);
-                DatabaseHelperClass databaseHelperClass = new DatabaseHelperClass(NewEntry.this);
-                BookModelClass bookModelClass = new BookModelClass(stringTitle,stringAuthor,stringPublisher,stringPrice);
-                databaseHelperClass.addBook(bookModelClass);
-                finish();
-                Intent intent = new Intent(NewEntry.this,NewEntry.class);
-                startActivity(intent);
-                }
-
-        });
     }
 
     public void openUpdatePage(){
-        Intent intent = new Intent(this,Update_entry.class);
-        startActivity(intent);
+
     }
 
 }
