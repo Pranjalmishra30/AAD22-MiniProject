@@ -1,16 +1,31 @@
 package com.example.androidproject;
 
 public class BookModelClass {
+    static Integer id;
     static String title;
     static String author;
     static String publisher;
     static String price;
 
+    public BookModelClass(Integer id,String title, String author, String publisher, String price) {
+        this.id = id;
+        this.title = title;
+        this.author = author;
+        this.publisher = publisher;
+        this.price = price;
+    }
     public BookModelClass(String title, String author, String publisher, String price) {
         this.title = title;
         this.author = author;
         this.publisher = publisher;
         this.price = price;
+    }
+    public static Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public static String getTitle() {
