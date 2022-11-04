@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 import androidx.annotation.Nullable;
 
@@ -41,14 +42,6 @@ public class DatabaseHelperClass extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(CREATE_TABLE);
-        db.execSQL(CREATE_TABLE2);
-
-        // Login and password added in table
-        ContentValues contentValues = new ContentValues();
-        contentValues.put("username","pranjal1234");
-        contentValues.put("password","P1234");
-        sqLiteDatabase = this.getWritableDatabase();
-        sqLiteDatabase.insert("USER",null,contentValues);
     }
 
     @Override
@@ -57,18 +50,34 @@ public class DatabaseHelperClass extends SQLiteOpenHelper {
         onCreate(db);
     }
 
+    // Login details added in table
+    public void addUser(){
+        sqLiteDatabase = this.getWritableDatabase();
+        sqLiteDatabase.execSQL(" DROP TABLE IF EXISTS USER");
+        sqLiteDatabase.execSQL(CREATE_TABLE2);
+        ContentValues contentValues = new ContentValues();
+        contentValues.put("username","pranjal1234");
+        contentValues.put("password","P1234");
+        sqLiteDatabase.insert("USER",null,contentValues);
+        Log.d("0","entered in user table");
+
+    }
+
+    // Return username and password
     public ArrayList retAuth(){
         sqLiteDatabase  = getReadableDatabase();
         ArrayList<String> res = new ArrayList<String>();
         Cursor c = sqLiteDatabase.rawQuery("select * from USER",null);
 
-        res.add(c.getString(0));
-        res.add(c.getString(1));
+        if(c.moveToFirst()){
+            res.add(c.getString(0));
+            res.add(c.getString(1));
+        }
         c.close();
         return res;
     }
 
-
+    // Add book entry
     public void addBook(BookModelClass bookModelClass){
         ContentValues contentValues = new ContentValues();
         contentValues.put(DatabaseHelperClass.TITLE,  BookModelClass.getTitle());
@@ -80,6 +89,7 @@ public class DatabaseHelperClass extends SQLiteOpenHelper {
 
     }
 
+    // Update book entry
     public void updateBook(BookModelClass bookModelClass){
         ContentValues contentValues = new ContentValues();
         contentValues.put(DatabaseHelperClass.TITLE,  BookModelClass.getTitle());
@@ -91,6 +101,7 @@ public class DatabaseHelperClass extends SQLiteOpenHelper {
 
     }
 
+    // Return specific books entry
     public ArrayList getRow(String IdToGet){
         sqLiteDatabase = getReadableDatabase();
         ArrayList<String> res = new ArrayList<String>();
@@ -102,12 +113,12 @@ public class DatabaseHelperClass extends SQLiteOpenHelper {
             res.add(c.getString(2));
             res.add(c.getString(3));
             res.add(c.getString(4));
-
         }
         c.close();
         return res;
     }
 
+    // Return all entries
     public ArrayList<BookModelClass> getBooksList(){
         sqLiteDatabase = getReadableDatabase();
         ArrayList<BookModelClass> booksList = new ArrayList<>();
@@ -120,5 +131,11 @@ public class DatabaseHelperClass extends SQLiteOpenHelper {
         }
         c.close();
         return booksList;
+    }
+
+    public void deleteBook(String IdToDelete){
+        sqLiteDatabase = this.getWritableDatabase();
+        String[] args = {IdToDelete};
+        sqLiteDatabase.delete(DatabaseHelperClass.tableName,ID + " = ? ",args);
     }
 }

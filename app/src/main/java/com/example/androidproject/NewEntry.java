@@ -38,7 +38,7 @@ public class NewEntry extends AppCompatActivity {
                 String stringPublisher = publisher.getText().toString();
                 String stringPrice = price.getText().toString();
 
-                if (stringTitle.length() <= 0 || stringAuthor.length()<=0 || stringTitle.length()<=0 || stringPrice.length()<=0) {
+                if (stringTitle.length() <= 0 || stringAuthor.length()<=0 || stringPublisher.length()<=0 || stringPrice.length()<=0) {
                     Toast.makeText(NewEntry.this, "Enter all fields", Toast.LENGTH_SHORT).show();
                 } else {
 

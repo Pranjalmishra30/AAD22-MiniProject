@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -26,18 +27,21 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 DatabaseHelperClass databaseHelperClass = new DatabaseHelperClass(MainActivity.this);
+                databaseHelperClass.addUser();
                 String user = username.getText().toString();
                 String pass = pwd.getText().toString();
 
                 ArrayList<String> res = new ArrayList<String>();
                 res = databaseHelperClass.retAuth();
-                Log.d("0",res.get(0));
-                Log.d("0",res.get(1));
 
+                if(user.equals(res.get(0)) && pass.equals(res.get(1))){
+                    openActivity2();
+                    Toast.makeText(MainActivity.this, "Equal", Toast.LENGTH_SHORT).show();
+                }
+                else{
+                    Toast.makeText(MainActivity.this, "Wrong username or password", Toast.LENGTH_SHORT).show();
+                }
 
-
-
-                openActivity2();
             }
         });
     }
