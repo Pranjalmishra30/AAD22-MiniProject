@@ -7,7 +7,10 @@ public class BookModelClass {
     String publisher;
     String price;
 
-    public BookModelClass(){}
+    public BookModelClass(){
+
+    }
+
     public BookModelClass(Integer id,String title, String author, String publisher, String price) {
         this.id = id;
         this.title = title;
@@ -15,14 +18,16 @@ public class BookModelClass {
         this.publisher = publisher;
         this.price = price;
     }
+
     public BookModelClass(String title, String author, String publisher, String price) {
         this.title = title;
         this.author = author;
         this.publisher = publisher;
         this.price = price;
     }
+
     public Integer getId() {
-        return this.id;
+        return id;
     }
 
     public void setId(Integer id) {
@@ -30,7 +35,7 @@ public class BookModelClass {
     }
 
     public String getTitle() {
-        return this.title;
+        return title;
     }
 
     public void setTitle(String title) {

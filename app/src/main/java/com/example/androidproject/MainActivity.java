@@ -15,6 +15,7 @@ import java.util.ArrayList;
 public class MainActivity extends AppCompatActivity {
     private Button button;
     EditText username,pwd;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -23,24 +24,20 @@ public class MainActivity extends AppCompatActivity {
         button = (Button) findViewById(R.id.login);
         username = findViewById(R.id.Username);
         pwd = findViewById(R.id.pwd);
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                DatabaseHelperClass databaseHelperClass = new DatabaseHelperClass(MainActivity.this);
-                databaseHelperClass.addUser();
-                String user = username.getText().toString();
-                String pass = pwd.getText().toString();
+        button.setOnClickListener(view -> {
+            DatabaseHelperClass databaseHelperClass = new DatabaseHelperClass(MainActivity.this);
+            databaseHelperClass.addUser();
+            String user = username.getText().toString();
+            String pass = pwd.getText().toString();
 
-                ArrayList<String> res = new ArrayList<String>();
-                res = databaseHelperClass.retAuth();
+            ArrayList<String> res = new ArrayList<String>();
+            res = databaseHelperClass.retAuth();
 
-                if(user.equals(res.get(0)) && pass.equals(res.get(1))){
-                    openActivity2();
-                }
-                else{
-                    Toast.makeText(MainActivity.this, "Wrong username or password", Toast.LENGTH_SHORT).show();
-                }
-
+            if(user.equals(res.get(0)) && pass.equals(res.get(1))){
+                openActivity2();
+            }
+            else{
+                Toast.makeText(MainActivity.this, "Wrong username or password", Toast.LENGTH_SHORT).show();
             }
         });
     }

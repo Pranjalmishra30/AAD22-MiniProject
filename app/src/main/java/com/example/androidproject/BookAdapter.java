@@ -13,7 +13,6 @@ import androidx.annotation.Nullable;
 
 import java.util.ArrayList;
 
-
 public class BookAdapter extends ArrayAdapter<BookModelClass> {
     private final Context mContext;
     private final ArrayList<BookModelClass> bookList;
@@ -48,8 +47,6 @@ public class BookAdapter extends ArrayAdapter<BookModelClass> {
         TextView price = listItem.findViewById(R.id.LPrice);
         price.setText(current.getPrice()+" Rs.");
 
-
-//
         if (position % 2 == 1) {
             listItem.setBackgroundColor(Color.parseColor("#9933FF"));
         } else {

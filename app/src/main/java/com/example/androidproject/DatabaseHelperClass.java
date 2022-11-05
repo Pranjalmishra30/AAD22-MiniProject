@@ -50,7 +50,7 @@ public class DatabaseHelperClass extends SQLiteOpenHelper {
         onCreate(db);
     }
 
-    // Login details added in table
+    // Add dummy user for login
     public void addUser(){
         sqLiteDatabase = this.getWritableDatabase();
         sqLiteDatabase.execSQL(" DROP TABLE IF EXISTS USER");
@@ -60,7 +60,6 @@ public class DatabaseHelperClass extends SQLiteOpenHelper {
         contentValues.put("password","P1234");
         sqLiteDatabase.insert("USER",null,contentValues);
         Log.d("0","entered in user table");
-
     }
 
     // Return username and password
@@ -86,7 +85,6 @@ public class DatabaseHelperClass extends SQLiteOpenHelper {
         contentValues.put(DatabaseHelperClass.PRICE,  bookModelClass.getPrice());
         sqLiteDatabase = this.getWritableDatabase();
         sqLiteDatabase.insert(DatabaseHelperClass.tableName,null,contentValues);
-
     }
 
     // Update book entry
@@ -98,10 +96,9 @@ public class DatabaseHelperClass extends SQLiteOpenHelper {
         contentValues.put(DatabaseHelperClass.PRICE,  bookModelClass.getPrice());
         sqLiteDatabase = this.getWritableDatabase();
         sqLiteDatabase.update(DatabaseHelperClass.tableName,contentValues, ID+" = ? ", new String[]{String.valueOf(bookModelClass.getId())});
-
     }
 
-    // Return specific books entry
+    // Return specific book entry
     public ArrayList getRow(String IdToGet){
         sqLiteDatabase = getReadableDatabase();
         ArrayList<String> res = new ArrayList<String>();
@@ -133,24 +130,12 @@ public class DatabaseHelperClass extends SQLiteOpenHelper {
             B.setPrice(c.getString(c.getColumnIndexOrThrow("Price")));
 
             booksList.add(B);
-            Log.d("0",booksList.get(0).getTitle());
-
         }
         c.close();
-        Log.d("0",booksList.get(2).getTitle());
         return booksList;
-
-//        Cursor c = sqLiteDatabase.rawQuery("SELECT * FROM BOOKS",null);
-//        if(c.moveToFirst()){
-//            while(!c.isAfterLast()){
-//                booksList.add(new BookModelClass(c.getString(1),c.getString(2),c.getString(3),c.getString(4)));
-//                c.moveToNext();
-//            }
-//        }
-//        c.close();
-//        return booksList;
     }
 
+    // Delete book entry
     public void deleteBook(String IdToDelete){
         sqLiteDatabase = this.getWritableDatabase();
         String[] args = {IdToDelete};

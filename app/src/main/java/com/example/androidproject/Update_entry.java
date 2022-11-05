@@ -32,59 +32,49 @@ public class Update_entry extends AppCompatActivity {
         price =  findViewById(R.id.txtPrice);
 
 
-        btnGet.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                DatabaseHelperClass databaseHelperClass = new DatabaseHelperClass(Update_entry.this);
-                String StrId = id.getText().toString();
+        btnGet.setOnClickListener(view -> {
+            DatabaseHelperClass databaseHelperClass = new DatabaseHelperClass(Update_entry.this);
+            String StrId = id.getText().toString();
 
-                if(StrId.length()<=0){
-                    Toast.makeText(Update_entry.this, "Enter ID", Toast.LENGTH_SHORT).show();
-                }
-                else{
-                    ArrayList<String> result = new ArrayList<String>();
-                    result = databaseHelperClass.getRow(StrId);
-                    title.setText(result.get(0));
-                    author.setText(result.get(1));
-                    publisher.setText(result.get(2));
-                    price.setText(result.get(3));
-                }
-
+            if(StrId.length()<=0){
+                Toast.makeText(Update_entry.this, "Enter ID", Toast.LENGTH_SHORT).show();
             }
-        });
-        btnUpdate.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                String stringId = id.getText().toString();
-                Integer intId = Integer.parseInt(stringId);
-                String stringTitle = title.getText().toString();
-                String stringAuthor = author.getText().toString();
-                String stringPublisher = publisher.getText().toString();
-                String stringPrice = price.getText().toString();
-
-                DatabaseHelperClass databaseHelperClass = new DatabaseHelperClass(Update_entry.this);
-                BookModelClass bookModelClass = new BookModelClass(intId,stringTitle,stringAuthor,stringPublisher,stringPrice);
-                databaseHelperClass.updateBook(bookModelClass);
-                Toast.makeText(Update_entry.this,"Updated Book",Toast.LENGTH_SHORT).show();
-                finish();
-                Intent intent = new Intent(Update_entry.this,Update_entry.class);
-                startActivity(intent);
-
+            else{
+                ArrayList<String> result = new ArrayList<String>();
+                result = databaseHelperClass.getRow(StrId);
+                title.setText(result.get(0));
+                author.setText(result.get(1));
+                publisher.setText(result.get(2));
+                price.setText(result.get(3));
             }
+
         });
 
-        btnDelete.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                DatabaseHelperClass databaseHelperClass = new DatabaseHelperClass(Update_entry.this);
-                String StrId = id.getText().toString();
-                databaseHelperClass.deleteBook(StrId);
-                Toast.makeText(Update_entry.this,"Deleted Book",Toast.LENGTH_SHORT).show();
-                finish();
-                Intent intent = new Intent(Update_entry.this,Update_entry.class);
-                startActivity(intent);
+        btnUpdate.setOnClickListener(view -> {
+            String stringId = id.getText().toString();
+            Integer intId = Integer.parseInt(stringId);
+            String stringTitle = title.getText().toString();
+            String stringAuthor = author.getText().toString();
+            String stringPublisher = publisher.getText().toString();
+            String stringPrice = price.getText().toString();
 
-            }
+            DatabaseHelperClass databaseHelperClass = new DatabaseHelperClass(Update_entry.this);
+            BookModelClass bookModelClass = new BookModelClass(intId,stringTitle,stringAuthor,stringPublisher,stringPrice);
+            databaseHelperClass.updateBook(bookModelClass);
+            Toast.makeText(Update_entry.this,"Updated Book",Toast.LENGTH_SHORT).show();
+            finish();
+            Intent intent = new Intent(Update_entry.this,Update_entry.class);
+            startActivity(intent);
+        });
+
+        btnDelete.setOnClickListener(view -> {
+            DatabaseHelperClass databaseHelperClass = new DatabaseHelperClass(Update_entry.this);
+            String StrId = id.getText().toString();
+            databaseHelperClass.deleteBook(StrId);
+            Toast.makeText(Update_entry.this,"Deleted Book",Toast.LENGTH_SHORT).show();
+            finish();
+            Intent intent = new Intent(Update_entry.this,Update_entry.class);
+            startActivity(intent);
         });
     }
 }
