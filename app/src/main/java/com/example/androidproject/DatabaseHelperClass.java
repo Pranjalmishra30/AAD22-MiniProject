@@ -126,6 +126,7 @@ public class DatabaseHelperClass extends SQLiteOpenHelper {
         Cursor c = sqLiteDatabase.query("BOOKS",null,null,null,null,null,null);
         while(c.moveToNext()){
             BookModelClass B = new BookModelClass();
+            B.setId(Integer.parseInt(c.getString(c.getColumnIndexOrThrow("Id"))));
             B.setTitle(c.getString(c.getColumnIndexOrThrow("Title")));
             B.setAuthor(c.getString(c.getColumnIndexOrThrow("Author")));
             B.setPublisher(c.getString(c.getColumnIndexOrThrow("Publisher")));

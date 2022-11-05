@@ -36,6 +36,9 @@ public class BookAdapter extends ArrayAdapter<BookModelClass> {
         TextView book = listItem.findViewById(R.id.LBook);
         book.setText(current.getTitle());
 
+        TextView id = listItem.findViewById(R.id.LId);
+        id.setText("ID: "+ String.valueOf(current.getId()));
+
         TextView author = listItem.findViewById(R.id.LAuthor);
         author.setText(current.getAuthor());
 
@@ -48,7 +51,7 @@ public class BookAdapter extends ArrayAdapter<BookModelClass> {
 
 //
         if (position % 2 == 1) {
-            listItem.setBackgroundColor(Color.parseColor("#FF6200EE"));
+            listItem.setBackgroundColor(Color.parseColor("#9933FF"));
         } else {
             listItem.setBackgroundColor(Color.parseColor("#FFFFFFFF"));
         }
