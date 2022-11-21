@@ -10,3 +10,6 @@
 3) Update book entry  
 4) View all book entries  
 
+![](db-design.png)  
+
+Check out [this](FISAC-1.pdf)for app screenshots
