@@ -12,4 +12,4 @@
 
 ![](db-design.png)  
 
-Check out [this](FISAC-1.pdf)for app screenshots
+### Check out [this](FISAC-1.pdf) for app screenshots
